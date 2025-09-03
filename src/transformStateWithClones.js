@@ -18,8 +18,6 @@ function transformStateWithClones(state, actions) {
         for (const key in keysProperties) {
           currentState[key] = keysProperties[key];
         }
-
-        statesArray.push({ ...currentState });
         break;
       case 'removeProperties':
         const remove = action.keysToRemove;
@@ -29,16 +27,15 @@ function transformStateWithClones(state, actions) {
             delete currentState[remove[j]];
           }
         }
-
-        statesArray.push({ ...currentState });
         break;
       case 'clear':
         currentState = {};
-        statesArray.push({ ...currentState });
         break;
       default:
         throw new Error(`Unknown action type: ${action.type}`);
     }
+
+    statesArray.push({ ...currentState });
   }
 
   return statesArray;
